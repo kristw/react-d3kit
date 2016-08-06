@@ -2,20 +2,6 @@
 
 var webpack = require('webpack');
 
-// Find bower path
-var path = require('path');
-var fs = require('fs');
-var bowerConfig = path.join(__dirname, '.bowerrc');
-var bowerPath = 'bower_components';
-try {
-  if (fs.statSync(bowerConfig)) {
-    var bowerrc = JSON.parse(fs.readFileSync(bowerConfig, 'utf-8'));
-    if (bowerrc.directory) {
-      bowerPath = path.join(__dirname, bowerrc.directory);
-    }
-  }
-} catch (ex) {}
-
 // Detect environment
 var isProduction = process.env.NODE_ENV === 'production';
 
@@ -23,10 +9,6 @@ var isProduction = process.env.NODE_ENV === 'production';
 var config = {
   module: {
     loaders: [
-      // {
-      //   test: /\.json$/,
-      //   loader: 'json-loader'
-      // },
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
@@ -38,14 +20,6 @@ var config = {
       }
     ]
   },
-  resolve: {
-    modulesDirectories: [bowerPath, 'node_modules']
-  },
-  plugins: [
-    new webpack.ResolverPlugin(
-      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
-    )
-  ],
   devtool: isProduction ? undefined : 'eval'
 };
 
