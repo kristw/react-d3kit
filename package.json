@@ -13,6 +13,9 @@
     "src/**/*.*",
     "dist/*.*"
   ],
+  "peerDependencies": {
+    "react": "^15.3.0"
+  },
   "devDependencies": {
     "gulp-uglify": "~1.5.4",
     "gulp-rename": "^1.2.2",
@@ -39,6 +42,7 @@
     "gulp": "^3.9.0",
     "gulp-load-plugins": "^1.1.0",
     "gulp-newer": "~1.1.0",
+    "react": "^15.3.0",
     "run-sequence": "^1.1.5",
     "webpack-stream": "^3.1.0",
     "vinyl-named": "^1.1.0",
