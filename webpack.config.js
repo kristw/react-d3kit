@@ -7,6 +7,21 @@ var isProduction = process.env.NODE_ENV === 'production';
 
 // Create config
 var config = {
+  output: {
+    filename: 'react-d3kit.js',
+    sourceMapFilename: '[file].map',
+    library: 'ReactD3Kit',
+    libraryTarget: 'umd',
+    umdNamedDefine: false
+  },
+  externals: {
+    'react': {
+      root: 'React',
+      commonjs2: 'react',
+      commonjs: 'react',
+      amd: 'react'
+    }
+  },
   module: {
     loaders: [
       {

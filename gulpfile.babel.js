@@ -33,15 +33,7 @@ gulp.task('clean', function () {
 
 gulp.task('webpack', function() {
   return gulp.src(paths.src + '/main.js')
-    .pipe(webpack(Object.assign({}, webpackConfig, {
-      output: {
-        filename: 'react-d3kit.js',
-        sourceMapFilename: '[file].map',
-        library: 'ReactD3Kit',
-        libraryTarget: 'umd',
-        umdNamedDefine: false
-      }
-    })))
+    .pipe(webpack(webpackConfig))
     .on('error', function handleError() {
       this.emit('end'); // Recover from errors
     })
