@@ -42,7 +42,7 @@ require.config({
     'react-d3kit': 'path/to/react-d3kit'
   }
 });
-require(['react-d3kit'], function(reactD3Kit) {
+require(['react-d3kit'], function(ReactD3Kit) {
   // do something with reactD3Kit
 });
 ```
@@ -52,7 +52,7 @@ require(['react-d3kit'], function(reactD3Kit) {
 This library also supports usage in commonjs style.
 
 ```javascript
-var reactD3Kit = require('react-d3kit');
+const ReactD3Kit = require('react-d3kit');
 // do something with reactD3Kit
 ```
 

@@ -66,7 +66,7 @@
     "start": "NODE_ENV=production gulp",
     "eslint": "eslint --ignore-path .gitignore src/**",
     "eslint-fix": "eslint --fix --ignore-path .gitignore src/**",
-    "preversion": "npm test",
+    "preversion": "npm run eslint-fix",
     "version": "npm run build && git add -A dist",
     "postversion": "git push ; git push --tags; pkgfiles",
     "prepublish": "pkgfiles"
