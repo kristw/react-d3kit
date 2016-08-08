@@ -35,7 +35,8 @@ var config = {
       }
     ]
   },
-  devtool: isProduction ? undefined : 'eval'
+  devtool: isProduction ? undefined : 'eval',
+  plugins: []
 };
 
 if (isProduction) {
