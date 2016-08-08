@@ -55,7 +55,7 @@
     "gh-pages": "^0.11.0"
   },
   "scripts": {
-    "gh-pages": "npm run build && gh-pages -d dist",
+    "gh-pages": "npm run build && gh-pages -d examples",
     "register-bower": "bower register react-d3kit git://github.com/kristw/react-d3kit",
     "webpack": "webpack",
     "webpack-watch": "webpack --watch",

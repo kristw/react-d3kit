@@ -30,6 +30,8 @@ ReactDOM.render(
 
 ```
 
+See [demo source](https://github.com/kristw/react-d3kit/blob/master/examples/main.js)
+
 ### Import into your project
 
 ##### Choice 1. Global
