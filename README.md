@@ -1,6 +1,5 @@
 **Introduction** |
-[Demo](https://kristw.github.io/react-d3kit) |
-[API Reference](https://github.com/kristw/react-d3kit/blob/master/docs/api.md)
+[Demo](https://kristw.github.io/react-d3kit)
 
 # react-d3kit [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
@@ -20,13 +19,22 @@ bower install react-d3kit --save
 
 ### Example Usage
 
-TBD
+```jsx
+// When PlainBubbleChart is a reusable chart written in d3Kit.
+const BubbleChart = ReactD3Kit.createComponent(PlainBubbleChart);
+
+ReactDOM.render(
+  <BubbleChart data={data} options={options} />,
+  document.getElementById('app')
+);
+
+```
 
 ### Import into your project
 
 ##### Choice 1. Global
 
-Adding this library via ```<script>``` tag is the simplest way. By doing this, ```reactD3Kit``` is available in the global scope.
+Adding this library via ```<script>``` tag is the simplest way. By doing this, ```ReactD3Kit``` is available in the global scope.
 
 ```html
 <script src="bower_components/react-d3kit/dist/react-d3kit.min.js"></script>
@@ -53,7 +61,12 @@ This library also supports usage in commonjs style.
 
 ```javascript
 const ReactD3Kit = require('react-d3kit');
-// do something with reactD3Kit
+```
+
+##### Choice 4: ES6 Import
+
+```javascript
+import {createComponent} from 'react-d3kit';
 ```
 
 ## License
