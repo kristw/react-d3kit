@@ -19,7 +19,7 @@ export function createComponent(Chart) {
     onInit: PropTypes.func,
   };
 
-  Chart.getCustomEvents()
+  Chart.getCustomEventNames()
     .map(name => listenerName(name))
     .forEach(name => {
       propTypes[name] = PropTypes.func;
@@ -30,7 +30,7 @@ export function createComponent(Chart) {
     componentDidMount() {
       const chart = new Chart(this.container, this.props.options);
 
-      Chart.getCustomEvents().forEach(eventName => {
+      Chart.getCustomEventNames().forEach(eventName => {
         chart.on(`${eventName}.react`, (...args) => {
           const listener = this.props[listenerName(eventName)];
           if (listener) {
@@ -63,8 +63,7 @@ export function createComponent(Chart) {
     }
 
     componentWillUnmount() {
-      this.chart.autoResize(false);
-      this.chart.on('.react', null);
+      this.chart.destroy();
     }
 
     render() {

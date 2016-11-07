@@ -14,7 +14,8 @@
     "dist/*.*"
   ],
   "peerDependencies": {
-    "react": "^15.3.0"
+    "react": "^15.3.0",
+    "d3kit": "^3.1.1"
   },
   "devDependencies": {
     "gulp-uglify": "~1.5.4",
