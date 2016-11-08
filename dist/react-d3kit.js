@@ -92,7 +92,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    onInit: _react.PropTypes.func
 	  };
 
-	  Chart.getCustomEvents().map(function (name) {
+	  Chart.getCustomEventNames().map(function (name) {
 	    return listenerName(name);
 	  }).forEach(function (name) {
 	    propTypes[name] = _react.PropTypes.func;
@@ -104,7 +104,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function Component() {
 	      _classCallCheck(this, Component);
 
-	      return _possibleConstructorReturn(this, Object.getPrototypeOf(Component).apply(this, arguments));
+	      return _possibleConstructorReturn(this, (Component.__proto__ || Object.getPrototypeOf(Component)).apply(this, arguments));
 	    }
 
 	    _createClass(Component, [{
@@ -114,7 +114,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        var chart = new Chart(this.container, this.props.options);
 
-	        Chart.getCustomEvents().forEach(function (eventName) {
+	        Chart.getCustomEventNames().forEach(function (eventName) {
 	          chart.on(eventName + '.react', function () {
 	            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	              args[_key] = arguments[_key];
@@ -150,8 +150,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	      key: 'componentWillUnmount',
 	      value: function componentWillUnmount() {
-	        this.chart.autoResize(false);
-	        this.chart.on('.react', null);
+	        this.chart.destroy();
 	      }
 	    }, {
 	      key: 'render',
