@@ -54,13 +54,171 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nexports.createComponent = createComponent;\n\nvar _react = __webpack_require__(1);\n\nvar _react2 = _interopRequireDefault(_react);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nfunction capitalize(str) {\n  return str.charAt(0).toUpperCase() + str.slice(1);\n}\n\nfunction listenerName(eventName) {\n  return 'on' + capitalize(eventName);\n}\n\nfunction createComponent(Chart) {\n  var propTypes = {\n    className: _react.PropTypes.string,\n    data: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.object]),\n    options: _react.PropTypes.object,\n    fitOptions: _react.PropTypes.object,\n    watch: _react.PropTypes.oneOfType([_react.PropTypes.bool, _react.PropTypes.object]),\n    onInit: _react.PropTypes.func\n  };\n\n  Chart.getCustomEventNames().map(function (name) {\n    return listenerName(name);\n  }).forEach(function (name) {\n    propTypes[name] = _react.PropTypes.func;\n  });\n\n  var Component = function (_React$Component) {\n    _inherits(Component, _React$Component);\n\n    function Component() {\n      _classCallCheck(this, Component);\n\n      return _possibleConstructorReturn(this, (Component.__proto__ || Object.getPrototypeOf(Component)).apply(this, arguments));\n    }\n\n    _createClass(Component, [{\n      key: 'componentDidMount',\n      value: function componentDidMount() {\n        var _this2 = this;\n\n        var _props = this.props,\n            data = _props.data,\n            options = _props.options,\n            fitOptions = _props.fitOptions,\n            watch = _props.watch,\n            onInit = _props.onInit;\n\n\n        var chart = new Chart(this.container, options);\n\n        Chart.getCustomEventNames().forEach(function (eventName) {\n          chart.on(eventName + '.react', function () {\n            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {\n              args[_key] = arguments[_key];\n            }\n\n            var listener = _this2.props[listenerName(eventName)];\n            if (listener) {\n              listener.apply(_this2, args);\n            }\n          });\n        });\n\n        if (data) {\n          chart.data(data);\n        }\n\n        if (fitOptions) {\n          if (watch) {\n            chart.fit(fitOptions, watch);\n          } else {\n            chart.fit(fitOptions, false);\n          }\n        }\n\n        if (onInit) {\n          onInit(chart);\n        }\n\n        this.chart = chart;\n      }\n    }, {\n      key: 'shouldComponentUpdate',\n      value: function shouldComponentUpdate(nextProps) {\n        return this.props.className !== nextProps.className || this.props.data !== nextProps.data || this.props.options !== nextProps.options || this.props.fitOptions !== nextProps.fitOptions || this.props.watch !== nextProps.watch;\n      }\n    }, {\n      key: 'componentDidUpdate',\n      value: function componentDidUpdate(prevProps) {\n        var _props2 = this.props,\n            data = _props2.data,\n            options = _props2.options,\n            fitOptions = _props2.fitOptions,\n            watch = _props2.watch;\n\n\n        if (options && options !== prevProps.options) {\n          this.chart.options(options);\n        }\n        if (data && data !== prevProps.data) {\n          this.chart.data(data);\n        }\n        if (fitOptions) {\n          if (watch) {\n            this.chart.fit(fitOptions, watch);\n          } else {\n            this.chart.fit(fitOptions, false);\n          }\n        }\n        if (!watch) {\n          this.chart.stopFitWatcher();\n        }\n      }\n    }, {\n      key: 'componentWillUnmount',\n      value: function componentWillUnmount() {\n        this.chart.destroy();\n      }\n    }, {\n      key: 'render',\n      value: function render() {\n        var _this3 = this;\n\n        return _react2.default.createElement('div', {\n          className: this.props.className,\n          ref: function ref(c) {\n            _this3.container = c;\n          }\n        });\n      }\n    }]);\n\n    return Component;\n  }(_react2.default.Component);\n\n  Component.propTypes = propTypes;\n\n  return Component;\n}\n\n//////////////////\n// WEBPACK FOOTER\n// ./src/main.js\n// module id = 0\n// module chunks = 0\n//# sourceURL=webpack:///./src/main.js?");
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	exports.createComponent = createComponent;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function capitalize(str) {
+	  return str.charAt(0).toUpperCase() + str.slice(1);
+	}
+
+	function listenerName(eventName) {
+	  return 'on' + capitalize(eventName);
+	}
+
+	function createComponent(Chart) {
+	  var propTypes = {
+	    className: _react.PropTypes.string,
+	    data: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.object]),
+	    options: _react.PropTypes.object,
+	    fitOptions: _react.PropTypes.object,
+	    watch: _react.PropTypes.oneOfType([_react.PropTypes.bool, _react.PropTypes.object]),
+	    onInit: _react.PropTypes.func
+	  };
+
+	  Chart.getCustomEventNames().map(function (name) {
+	    return listenerName(name);
+	  }).forEach(function (name) {
+	    propTypes[name] = _react.PropTypes.func;
+	  });
+
+	  var Component = function (_React$Component) {
+	    _inherits(Component, _React$Component);
+
+	    function Component() {
+	      _classCallCheck(this, Component);
+
+	      return _possibleConstructorReturn(this, (Component.__proto__ || Object.getPrototypeOf(Component)).apply(this, arguments));
+	    }
+
+	    _createClass(Component, [{
+	      key: 'componentDidMount',
+	      value: function componentDidMount() {
+	        var _this2 = this;
+
+	        var _props = this.props,
+	            data = _props.data,
+	            options = _props.options,
+	            fitOptions = _props.fitOptions,
+	            watch = _props.watch,
+	            onInit = _props.onInit;
+
+
+	        var chart = new Chart(this.container, options);
+
+	        Chart.getCustomEventNames().forEach(function (eventName) {
+	          chart.on(eventName + '.react', function () {
+	            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	              args[_key] = arguments[_key];
+	            }
+
+	            var listener = _this2.props[listenerName(eventName)];
+	            if (listener) {
+	              listener.apply(_this2, args);
+	            }
+	          });
+	        });
+
+	        if (data) {
+	          chart.data(data);
+	        }
+
+	        if (fitOptions) {
+	          if (watch) {
+	            chart.fit(fitOptions, watch);
+	          } else {
+	            chart.fit(fitOptions, false);
+	          }
+	        }
+
+	        if (onInit) {
+	          onInit(chart);
+	        }
+
+	        this.chart = chart;
+	      }
+	    }, {
+	      key: 'shouldComponentUpdate',
+	      value: function shouldComponentUpdate(nextProps) {
+	        return this.props.className !== nextProps.className || this.props.data !== nextProps.data || this.props.options !== nextProps.options || this.props.fitOptions !== nextProps.fitOptions || this.props.watch !== nextProps.watch;
+	      }
+	    }, {
+	      key: 'componentDidUpdate',
+	      value: function componentDidUpdate(prevProps) {
+	        var _props2 = this.props,
+	            data = _props2.data,
+	            options = _props2.options,
+	            fitOptions = _props2.fitOptions,
+	            watch = _props2.watch;
+
+
+	        if (options && options !== prevProps.options) {
+	          this.chart.options(options);
+	        }
+	        if (data && data !== prevProps.data) {
+	          this.chart.data(data);
+	        }
+	        if (fitOptions) {
+	          if (watch) {
+	            this.chart.fit(fitOptions, watch);
+	          } else {
+	            this.chart.fit(fitOptions, false);
+	          }
+	        }
+	        if (!watch) {
+	          this.chart.stopFitWatcher();
+	        }
+	      }
+	    }, {
+	      key: 'componentWillUnmount',
+	      value: function componentWillUnmount() {
+	        this.chart.destroy();
+	      }
+	    }, {
+	      key: 'render',
+	      value: function render() {
+	        var _this3 = this;
+
+	        return _react2.default.createElement('div', {
+	          className: this.props.className,
+	          ref: function ref(c) {
+	            _this3.container = c;
+	          }
+	        });
+	      }
+	    }]);
+
+	    return Component;
+	  }(_react2.default.Component);
+
+	  Component.propTypes = propTypes;
+
+	  return Component;
+	}
 
 /***/ },
 /* 1 */
 /***/ function(module, exports) {
 
-	eval("module.exports = __WEBPACK_EXTERNAL_MODULE_1__;\n\n//////////////////\n// WEBPACK FOOTER\n// external {\"root\":\"React\",\"commonjs2\":\"react\",\"commonjs\":\"react\",\"amd\":\"react\"}\n// module id = 1\n// module chunks = 0\n//# sourceURL=webpack:///external_%7B%22root%22:%22React%22,%22commonjs2%22:%22react%22,%22commonjs%22:%22react%22,%22amd%22:%22react%22%7D?");
+	module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
 
 /***/ }
 /******/ ])
