@@ -7,17 +7,19 @@ Easily convert d3Kit chart into React component
 
 ### Install
 
-```
+```bash
 npm install react-d3kit --save
 ```
 
 or
 
-```
+```bash
 bower install react-d3kit --save
 ```
 
-### Example Usage
+## Example Usage
+
+### Basic
 
 ```jsx
 // When PlainBubbleChart is a reusable chart written in d3Kit.
@@ -27,7 +29,27 @@ ReactDOM.render(
   <BubbleChart data={data} options={options} />,
   document.getElementById('app')
 );
+```
 
+### With auto-resize
+
+You can pass props `fitOptions` and `watch`, which is equivalent to calling d3Kit's `chart.fit(fitOptions, watch)`. See documentation [here](https://github.com/twitter/d3kit/blob/master/docs/api/AbstractChart.md#fit).
+
+```jsx
+// When PlainBubbleChart is a reusable chart written in d3Kit.
+const BubbleChart = ReactD3Kit.createComponent(PlainBubbleChart);
+
+const fitOptions = { width: '100%', height: 400 };
+
+ReactDOM.render(
+  <BubbleChart
+    data={data}
+    options={options}
+    fitOptions={fitOptions}
+    watch={true}
+  />,
+  document.getElementById('app')
+);
 ```
 
 See [demo source](https://github.com/kristw/react-d3kit/blob/master/examples/main.js)
@@ -68,7 +90,7 @@ const ReactD3Kit = require('react-d3kit');
 ##### Choice 4: ES6 Import
 
 ```javascript
-import {createComponent} from 'react-d3kit';
+import { createComponent } from 'react-d3kit';
 ```
 
 ## License
