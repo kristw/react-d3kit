@@ -11,7 +11,7 @@ class BubbleChart extends SvgChart {
     return helper.deepExtend(
       super.getDefaultOptions(),
       {
-        margin: {top: 60, right: 60, bottom: 60, left: 60},
+        margin: {top: 40, right: 60, bottom: 60, left: 60},
         initialWidth: 400,
         initialHeight: 300,
         color: (d,i) => colorScale(i),

@@ -60,17 +60,24 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.updateData}>Update data</button>
-        <button onClick={this.updateOptions}>Update options (colorScale)</button>
+        <div>
+          <button onClick={this.updateData}>Update data</button>
+          <button onClick={this.updateOptions}>Update options (Change color scale)</button>
+        </div>
+        <p>
+        This chart will maintain its initial size.
+        </p>
         <BubbleChart
           data={this.state.data}
           options={this.state.options}
         />
+        This chart will fit to 100%, but does not resize when window resize.
         <BubbleChart
           data={this.state.data}
           options={this.state.options}
           fitOptions={this.state.fitOptions}
         />
+        This chart will fit to 100% and also resize again when window resize.
         <BubbleChart
           data={this.state.data}
           options={this.state.options}
