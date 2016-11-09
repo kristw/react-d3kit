@@ -89,10 +89,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    className: _react.PropTypes.string,
 	    data: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.object]),
 	    options: _react.PropTypes.object,
+	    fitOptions: _react.PropTypes.object,
+	    watch: _react.PropTypes.oneOfType([_react.PropTypes.bool, _react.PropTypes.object]),
 	    onInit: _react.PropTypes.func
 	  };
 
-	  Chart.getCustomEvents().map(function (name) {
+	  Chart.getCustomEventNames().map(function (name) {
 	    return listenerName(name);
 	  }).forEach(function (name) {
 	    propTypes[name] = _react.PropTypes.func;
@@ -104,7 +106,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function Component() {
 	      _classCallCheck(this, Component);
 
-	      return _possibleConstructorReturn(this, Object.getPrototypeOf(Component).apply(this, arguments));
+	      return _possibleConstructorReturn(this, (Component.__proto__ || Object.getPrototypeOf(Component)).apply(this, arguments));
 	    }
 
 	    _createClass(Component, [{
@@ -112,9 +114,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	      value: function componentDidMount() {
 	        var _this2 = this;
 
-	        var chart = new Chart(this.container, this.props.options);
+	        var _props = this.props,
+	            data = _props.data,
+	            options = _props.options,
+	            fitOptions = _props.fitOptions,
+	            watch = _props.watch,
+	            onInit = _props.onInit;
 
-	        Chart.getCustomEvents().forEach(function (eventName) {
+
+	        var chart = new Chart(this.container, options);
+
+	        Chart.getCustomEventNames().forEach(function (eventName) {
 	          chart.on(eventName + '.react', function () {
 	            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	              args[_key] = arguments[_key];
@@ -127,12 +137,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	          });
 	        });
 
-	        if (this.props.data) {
-	          chart.data(this.props.data);
+	        if (data) {
+	          chart.data(data);
 	        }
 
-	        if (this.props.onInit) {
-	          this.props.onInit(chart);
+	        if (fitOptions) {
+	          if (watch) {
+	            chart.fit(fitOptions, watch);
+	          } else {
+	            chart.fit(fitOptions, false);
+	          }
+	        }
+
+	        if (onInit) {
+	          onInit(chart);
 	        }
 
 	        this.chart = chart;
@@ -140,18 +158,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	      key: 'shouldComponentUpdate',
 	      value: function shouldComponentUpdate(nextProps) {
-	        return this.props.className !== nextProps.className || this.props.data !== nextProps.data || this.props.options !== nextProps.options;
+	        return this.props.className !== nextProps.className || this.props.data !== nextProps.data || this.props.options !== nextProps.options || this.props.fitOptions !== nextProps.fitOptions || this.props.watch !== nextProps.watch;
 	      }
 	    }, {
 	      key: 'componentDidUpdate',
-	      value: function componentDidUpdate() {
-	        this.chart.options(this.props.options).data(this.props.data);
+	      value: function componentDidUpdate(prevProps) {
+	        var _props2 = this.props,
+	            data = _props2.data,
+	            options = _props2.options,
+	            fitOptions = _props2.fitOptions,
+	            watch = _props2.watch;
+
+
+	        if (options && options !== prevProps.options) {
+	          this.chart.options(options);
+	        }
+	        if (data && data !== prevProps.data) {
+	          this.chart.data(data);
+	        }
+	        if (fitOptions) {
+	          if (watch) {
+	            this.chart.fit(fitOptions, watch);
+	          } else {
+	            this.chart.fit(fitOptions, false);
+	          }
+	        }
+	        if (!watch) {
+	          this.chart.stopFitWatcher();
+	        }
 	      }
 	    }, {
 	      key: 'componentWillUnmount',
 	      value: function componentWillUnmount() {
-	        this.chart.autoResize(false);
-	        this.chart.on('.react', null);
+	        this.chart.destroy();
 	      }
 	    }, {
 	      key: 'render',

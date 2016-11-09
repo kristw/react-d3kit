@@ -1,8 +1,5 @@
-(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-dispatch')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-dispatch'], factory) :
-  (factory((global.d3Kit = global.d3Kit || {}),global.d3,global.d3));
-}(this, (function (exports,d3Selection,d3Dispatch) { 'use strict';
+import { select } from 'd3-selection';
+import { dispatch } from 'd3-dispatch';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
@@ -1095,7 +1092,7 @@ var AbstractChart = function () {
       data: null
     };
 
-    this.container = d3Selection.select(selector);
+    this.container = select(selector);
     // Enforce line-height = 0 to fix issue with height resizing
     // https://github.com/twitter/d3kit/issues/13
     this.container.style('line-height', 0);
@@ -1116,7 +1113,7 @@ var AbstractChart = function () {
 
       this._customEventNames = customEventNames;
       this._eventNames = AbstractChart.DEFAULT_EVENTS.concat(customEventNames);
-      this.dispatcher = d3Dispatch.dispatch.apply(this, this._eventNames);
+      this.dispatcher = dispatch.apply(this, this._eventNames);
     }
   }, {
     key: 'getCustomEventNames',
@@ -1595,13 +1592,4 @@ var SvgChart = function (_AbstractChart) {
   return SvgChart;
 }(AbstractChart);
 
-exports.helper = helper;
-exports.AbstractChart = AbstractChart;
-exports.CanvasChart = CanvasChart;
-exports.SvgChart = SvgChart;
-exports.LayerOrganizer = LayerOrganizer;
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-})));
-//# sourceMappingURL=d3kit.js.map
+export { helper, AbstractChart, CanvasChart, SvgChart, LayerOrganizer };

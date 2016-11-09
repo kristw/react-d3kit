@@ -1,82 +1,91 @@
-// Define bubble chart
-window.PlainBubbleChart = d3Kit.factory.createChart(
-  // First argument is the default options for this chart
-  {
-    margin: {top: 30, right: 60, bottom: 40, left: 60},
-    initialWidth: 800,
-    initialHeight: 400,
-    color: d3.scale.category10(),
-  },
-  // The second argument is an Array that contains
-  // names of custom events from this chart.
-  // In this example chart,
-  // it will dispatch event "bubbleClick" when users click on a bubble.
-  ['bubbleClick'],
-  // The third argument is an internal constructor.
-  // This is where you would implement a bubble chart
-  // inside the passed skeleton.
-  function(skeleton){
-    var layers = skeleton.getLayerOrganizer();
-    var dispatch = skeleton.getDispatcher();
-    var options = skeleton.options();
+const { scaleLinear, scaleOrdinal, schemeCategory10 } = d3;
+const { axisLeft, axisBottom } = d3;
+const { extent } = d3;
+const { SvgChart, helper } = d3Kit;
 
-    layers.create(['content', 'x-axis', 'y-axis']);
+class BubbleChart extends SvgChart {
+  // Define default options for this chart
+  static getDefaultOptions() {
+    const colorScale = scaleOrdinal(schemeCategory10);
 
-    var x = d3.scale.linear()
-      .range([0, skeleton.getInnerWidth()]);
-
-    var y = d3.scale.linear()
-      .range([0, skeleton.getInnerHeight()]);
-
-    var xAxis = d3.svg.axis()
-      .scale(x)
-      .orient('bottom');
-
-    var yAxis = d3.svg.axis()
-      .scale(y)
-      .orient('left');
-
-    var visualize = d3Kit.helper.debounce(function(){
-      if(!skeleton.hasData()){
-        d3Kit.helper.removeAllChildren(layers.get('content'));
-        return;
+    return helper.deepExtend(
+      super.getDefaultOptions(),
+      {
+        margin: {top: 40, right: 60, bottom: 60, left: 60},
+        initialWidth: 400,
+        initialHeight: 300,
+        color: (d,i) => colorScale(i),
       }
-      var data = skeleton.data();
-
-      x.domain(d3.extent(data, function(d){return d.x;}))
-        .range([0, skeleton.getInnerWidth()]);
-      y.domain(d3.extent(data, function(d){return d.y;}))
-        .range([skeleton.getInnerHeight(), 0]);
-
-      layers.get('x-axis')
-        .attr('transform', 'translate(0,' + skeleton.getInnerHeight() + ')')
-        .call(xAxis);
-
-      layers.get('y-axis')
-        .call(yAxis);
-
-      var selection = layers.get('content').selectAll('circle')
-        .data(data);
-
-      selection.exit().remove();
-
-      selection.enter().append('circle')
-        .attr('cx', function(d){return x(d.x);})
-        .attr('cy', function(d){return y(d.y);})
-        .on('click', dispatch.bubbleClick);
-
-      var color = d3.functor(options.color);
-
-      selection
-        .attr('cx', function(d){return x(d.x);})
-        .attr('cy', function(d){return y(d.y);})
-        .attr('r', function(d){return d.r;})
-        .style('fill', function(d, i){return color(i);});
-
-    }, 10);
-
-    skeleton
-      .on('options', visualize)
-      .on('data', visualize);
+    );
   }
-);
+
+  /**
+   * Define the names of custom events that can be dispatched from this chart
+   * @return {Array[String]} event names
+   */
+  static getCustomEventNames() {
+    return ['bubbleClick'];
+  }
+
+  constructor(selector, options) {
+    super(selector, options);
+
+    // create <g> layers
+    this.layers.create(['content', 'x-axis', 'y-axis']);
+
+    // add custom variables
+    this.xScale = scaleLinear();
+    this.yScale = scaleLinear();
+    this.xAxis = axisBottom().scale(this.xScale);
+    this.yAxis = axisLeft().scale(this.yScale);
+
+    // add basic event listeners
+    this.visualize = this.visualize.bind(this);
+    this.on('resize.default', this.visualize);
+    this.on('data.default', this.visualize);
+    this.on('options.default', this.visualize);
+  }
+
+  // You can define a new function for this class.
+  visualize() {
+    if(!this.hasData()){
+      this.layers.get('content').selectAll('*').remove();
+      return;
+    }
+
+    const data = this.data();
+    const options = this.options();
+
+    this.xScale.domain(extent(data, d => d.x))
+      .range([0, this.getInnerWidth()]);
+    this.yScale.domain(extent(data, d => d.y))
+      .range([this.getInnerHeight(), 0]);
+
+    this.layers.get('x-axis')
+      .attr('transform', `translate(0,${this.getInnerHeight()})`)
+      .call(this.xAxis);
+
+    this.layers.get('y-axis')
+      .call(this.yAxis);
+
+    const selection = this.layers.get('content').selectAll('circle')
+      .data(data);
+
+    selection.exit().remove();
+
+    const sEnter = selection.enter().append('circle')
+      .attr('cx', d => this.xScale(d.x))
+      .attr('cy', d => this.yScale(d.y))
+      .on('click', (...args) => {
+        this.dispatcher.apply('bubbleClick', this, args);
+      });
+
+    selection.merge(sEnter)
+      .attr('cx', d => this.xScale(d.x))
+      .attr('cy', d => this.yScale(d.y))
+      .attr('r', d => d.r)
+      .style('fill', options.color);
+  }
+}
+
+window.d3BubbleChart = BubbleChart;
