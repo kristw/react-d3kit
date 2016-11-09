@@ -16,6 +16,11 @@ export function createComponent(Chart) {
       PropTypes.object,
     ]),
     options: PropTypes.object,
+    fitOptions: PropTypes.object,
+    watch: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.object,
+    ]),
     onInit: PropTypes.func,
   };
 
@@ -28,7 +33,15 @@ export function createComponent(Chart) {
   class Component extends React.Component {
 
     componentDidMount() {
-      const chart = new Chart(this.container, this.props.options);
+      const {
+        data,
+        options,
+        fitOptions,
+        watch,
+        onInit,
+      } = this.props;
+
+      const chart = new Chart(this.container, options);
 
       Chart.getCustomEventNames().forEach(eventName => {
         chart.on(`${eventName}.react`, (...args) => {
@@ -39,12 +52,20 @@ export function createComponent(Chart) {
         });
       });
 
-      if (this.props.data) {
-        chart.data(this.props.data);
+      if (data) {
+        chart.data(data);
       }
 
-      if (this.props.onInit) {
-        this.props.onInit(chart);
+      if (fitOptions) {
+        if (watch) {
+          chart.fit(fitOptions, watch);
+        } else {
+          chart.fit(fitOptions, false);
+        }
+      }
+
+      if (onInit) {
+        onInit(chart);
       }
 
       this.chart = chart;
@@ -53,13 +74,35 @@ export function createComponent(Chart) {
     shouldComponentUpdate(nextProps) {
       return this.props.className !== nextProps.className
       || this.props.data !== nextProps.data
-      || this.props.options !== nextProps.options;
+      || this.props.options !== nextProps.options
+      || this.props.fitOptions !== nextProps.fitOptions
+      || this.props.watch !== nextProps.watch;
     }
 
-    componentDidUpdate() {
-      this.chart
-        .options(this.props.options)
-        .data(this.props.data);
+    componentDidUpdate(prevProps) {
+      const {
+        data,
+        options,
+        fitOptions,
+        watch,
+      } = this.props;
+
+      if (options && options !== prevProps.options) {
+        this.chart.options(options);
+      }
+      if (data && data !== prevProps.data) {
+        this.chart.data(data);
+      }
+      if (fitOptions) {
+        if (watch) {
+          this.chart.fit(fitOptions, watch);
+        } else {
+          this.chart.fit(fitOptions, false);
+        }
+      }
+      if (!watch) {
+        this.chart.stopFitWatcher();
+      }
     }
 
     componentWillUnmount() {

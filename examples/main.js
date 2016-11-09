@@ -1,6 +1,6 @@
 // window.PlainBubbleChart is a bubble chart class built via d3Kit.
 // See implementation in bubbleChart.js
-const BubbleChart = ReactD3Kit.createComponent(window.PlainBubbleChart);
+const BubbleChart = ReactD3Kit.createComponent(window.d3BubbleChart);
 
 function generateBubbles() {
   var bubbles = [];
@@ -20,11 +20,11 @@ let x = 1;
 function generateColorScale() {
   x = (x+1) % 5;
   switch(x) {
-    case 0: return d3.scale.category10();
-    case 1: return '#3498db';
-    case 2: return '#d35400';
-    case 3: return '#27ae60';
-    case 4: return '#8e44ad';
+    case 0: return d3.scaleOrdinal(d3.schemeCategory10);
+    case 1: return () => '#3498db';
+    case 2: return () => '#d35400';
+    case 3: return () => '#27ae60';
+    case 4: return () => '#8e44ad';
   }
 }
 
@@ -33,7 +33,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       data: generateBubbles(),
-      options: null
+      options: null,
+      fitOptions: {
+        width: '100%'
+      }
     };
     this.updateData = this.updateData.bind(this);
     this.updateOptions = this.updateOptions.bind(this);
@@ -46,9 +49,10 @@ class App extends React.Component {
   }
 
   updateOptions() {
+    const scale = generateColorScale();
     this.setState({
       options: {
-        color: generateColorScale()
+        color: (d,i) => scale(i)
       }
     });
   }
@@ -58,7 +62,21 @@ class App extends React.Component {
       <div>
         <button onClick={this.updateData}>Update data</button>
         <button onClick={this.updateOptions}>Update options (colorScale)</button>
-        <BubbleChart data={this.state.data} options={this.state.options} />
+        <BubbleChart
+          data={this.state.data}
+          options={this.state.options}
+        />
+        <BubbleChart
+          data={this.state.data}
+          options={this.state.options}
+          fitOptions={this.state.fitOptions}
+        />
+        <BubbleChart
+          data={this.state.data}
+          options={this.state.options}
+          fitOptions={this.state.fitOptions}
+          watch={true}
+        />
       </div>
     );
   }
