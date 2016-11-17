@@ -87,6 +87,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	function createComponent(Chart) {
 	  var propTypes = {
 	    className: _react.PropTypes.string,
+	    width: _react.PropTypes.number,
+	    height: _react.PropTypes.number,
 	    data: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.object]),
 	    options: _react.PropTypes.object,
 	    fitOptions: _react.PropTypes.object,
@@ -158,18 +160,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	      key: 'shouldComponentUpdate',
 	      value: function shouldComponentUpdate(nextProps) {
-	        return this.props.className !== nextProps.className || this.props.data !== nextProps.data || this.props.options !== nextProps.options || this.props.fitOptions !== nextProps.fitOptions || this.props.watch !== nextProps.watch;
+	        return this.props.className !== nextProps.className || this.props.width !== nextProps.width || this.props.height !== nextProps.height || this.props.data !== nextProps.data || this.props.options !== nextProps.options || this.props.fitOptions !== nextProps.fitOptions || this.props.watch !== nextProps.watch;
 	      }
 	    }, {
 	      key: 'componentDidUpdate',
 	      value: function componentDidUpdate(prevProps) {
 	        var _props2 = this.props,
+	            width = _props2.width,
+	            height = _props2.height,
 	            data = _props2.data,
 	            options = _props2.options,
 	            fitOptions = _props2.fitOptions,
 	            watch = _props2.watch;
 
 
+	        if (width !== null && width !== undefined && width !== prevProps.width) {
+	          this.chart.width(width);
+	        }
+	        if (height !== null && height !== undefined && height !== prevProps.height) {
+	          this.chart.height(height);
+	        }
 	        if (options && options !== prevProps.options) {
 	          this.chart.options(options);
 	        }
