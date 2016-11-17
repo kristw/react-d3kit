@@ -11,6 +11,8 @@ function listenerName(eventName) {
 export function createComponent(Chart) {
   const propTypes = {
     className: PropTypes.string,
+    width: PropTypes.number,
+    height: PropTypes.number,
     data: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.object,
@@ -73,6 +75,8 @@ export function createComponent(Chart) {
 
     shouldComponentUpdate(nextProps) {
       return this.props.className !== nextProps.className
+      || this.props.width !== nextProps.width
+      || this.props.height !== nextProps.height
       || this.props.data !== nextProps.data
       || this.props.options !== nextProps.options
       || this.props.fitOptions !== nextProps.fitOptions
@@ -81,12 +85,20 @@ export function createComponent(Chart) {
 
     componentDidUpdate(prevProps) {
       const {
+        width,
+        height,
         data,
         options,
         fitOptions,
         watch,
       } = this.props;
 
+      if (width !== null && width !== undefined && width !== prevProps.width) {
+        this.chart.width(width);
+      }
+      if (height !== null && height !== undefined && height !== prevProps.height) {
+        this.chart.height(height);
+      }
       if (options && options !== prevProps.options) {
         this.chart.options(options);
       }

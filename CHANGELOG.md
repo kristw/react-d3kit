@@ -1,5 +1,8 @@
 # react-d3kit
 
+## v1.2.0
+- Add props `width` and `height`
+
 ## v1.1.0
 - Add props `fitOptions` and `watch` for auto-resizing
 
