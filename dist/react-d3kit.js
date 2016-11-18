@@ -120,11 +120,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	            width = _props.width,
 	            height = _props.height,
 	            data = _props.data,
-	            options = _props.options,
 	            fitOptions = _props.fitOptions,
 	            watch = _props.watch,
 	            onInit = _props.onInit;
 
+
+	        var options = this.props.options || {};
+
+	        if (width !== null && width !== undefined) {
+	          options.initialWidth = width;
+	        }
+	        if (height !== null && height !== undefined) {
+	          options.initialHeight = height;
+	        }
 
 	        var chart = new Chart(this.container, options);
 
@@ -141,12 +149,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	          });
 	        });
 
-	        if (width !== null && width !== undefined) {
-	          chart.width(width);
-	        }
-	        if (height !== null && height !== undefined) {
-	          chart.height(height);
-	        }
 	        if (data) {
 	          chart.data(data);
 	        }
