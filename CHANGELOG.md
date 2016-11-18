@@ -1,5 +1,8 @@
 # react-d3kit
 
+## v1.2.1
+- Also set `width` and `height` from props in `componentDidMount`
+
 ## v1.2.0
 - Add props `width` and `height`
 
