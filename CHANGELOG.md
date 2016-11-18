@@ -1,5 +1,8 @@
 # react-d3kit
 
+## v1.2.2
+- Fix small bug. Forget to remove `this.`
+
 ## v1.2.1
 - Also set `width` and `height` from props in `componentDidMount`
 
