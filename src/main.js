@@ -57,10 +57,10 @@ export function createComponent(Chart) {
       });
 
       if (width !== null && width !== undefined) {
-        this.chart.width(width);
+        chart.width(width);
       }
       if (height !== null && height !== undefined) {
-        this.chart.height(height);
+        chart.height(height);
       }
       if (data) {
         chart.data(data);
