@@ -39,11 +39,19 @@ export function createComponent(Chart) {
         width,
         height,
         data,
-        options,
         fitOptions,
         watch,
         onInit,
       } = this.props;
+
+      const options = this.props.options || {};
+
+      if (width !== null && width !== undefined) {
+        options.initialWidth = width;
+      }
+      if (height !== null && height !== undefined) {
+        options.initialHeight = height;
+      }
 
       const chart = new Chart(this.container, options);
 
@@ -56,12 +64,6 @@ export function createComponent(Chart) {
         });
       });
 
-      if (width !== null && width !== undefined) {
-        chart.width(width);
-      }
-      if (height !== null && height !== undefined) {
-        chart.height(height);
-      }
       if (data) {
         chart.data(data);
       }

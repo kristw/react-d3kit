@@ -1,5 +1,8 @@
 # react-d3kit
 
+## v1.2.3
+- Make setting `width` and `height` more efficient for initial state.
+
 ## v1.2.2
 - Fix small bug. Forget to remove `this.`
 
