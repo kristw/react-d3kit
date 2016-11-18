@@ -117,6 +117,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var _this2 = this;
 
 	        var _props = this.props,
+	            width = _props.width,
+	            height = _props.height,
 	            data = _props.data,
 	            options = _props.options,
 	            fitOptions = _props.fitOptions,
@@ -139,6 +141,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	          });
 	        });
 
+	        if (width !== null && width !== undefined) {
+	          this.chart.width(width);
+	        }
+	        if (height !== null && height !== undefined) {
+	          this.chart.height(height);
+	        }
 	        if (data) {
 	          chart.data(data);
 	        }
