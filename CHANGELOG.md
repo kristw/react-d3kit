@@ -1,5 +1,8 @@
 # react-d3kit
 
+## v1.2.4
+- Remove engine restriction
+
 ## v1.2.3
 - Make setting `width` and `height` more efficient for initial state.
 
