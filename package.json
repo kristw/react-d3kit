@@ -1,6 +1,6 @@
 {
   "name": "react-d3kit",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Easily convert d3Kit chart into React component",
   "author": "Krist Wongsuphasawat <krist.wongz@gmail.com> (http://kristw.yellowpigz.com)",
   "keywords": [],
