@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);

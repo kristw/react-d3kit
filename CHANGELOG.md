@@ -1,5 +1,9 @@
 # react-d3kit
 
+## v2.0.0
+- Change dependency to React 16
+- Drop bower support
+
 ## v1.2.4
 - Remove engine restriction
 
