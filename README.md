@@ -11,12 +11,6 @@ Easily convert d3Kit chart into React component
 npm install react-d3kit --save
 ```
 
-or
-
-```bash
-bower install react-d3kit --save
-```
-
 ## Example Usage
 
 ### Basic
@@ -61,7 +55,7 @@ See [demo source](https://github.com/kristw/react-d3kit/blob/master/examples/mai
 Adding this library via ```<script>``` tag is the simplest way. By doing this, ```ReactD3Kit``` is available in the global scope.
 
 ```html
-<script src="bower_components/react-d3kit/dist/react-d3kit.min.js"></script>
+<script src="node_modules/react-d3kit/dist/react-d3kit.min.js"></script>
 ```
 
 ##### Choice 2: AMD
