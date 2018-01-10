@@ -7,7 +7,7 @@ const commonConfig = {
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'react-d3kit.js',
+    filename: 'react-d3kit.min.js',
     sourceMapFilename: '[file].map',
     library: 'ReactD3Kit',
     libraryTarget: 'umd',
