@@ -89,7 +89,7 @@ import { createComponent } from 'react-d3kit';
 
 ## License
 
-© 2016 [Krist Wongsuphasawat](http://kristw.yellowpigz.com)  ([@kristw](https://twitter.com/kristw)) Apache-2.0 License
+© 2016-2018 [Krist Wongsuphasawat](http://kristw.yellowpigz.com)  ([@kristw](https://twitter.com/kristw)) Apache-2.0 License
 
 [npm-image]: https://badge.fury.io/js/react-d3kit.svg
 [npm-url]: https://npmjs.org/package/react-d3kit
