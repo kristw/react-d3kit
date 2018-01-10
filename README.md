@@ -78,7 +78,7 @@ require(['react-d3kit'], function(ReactD3Kit) {
 This library also supports usage in commonjs style.
 
 ```javascript
-const ReactD3Kit = require('react-d3kit');
+const { createComponent } = require('react-d3kit');
 ```
 
 ##### Choice 4: ES6 Import
