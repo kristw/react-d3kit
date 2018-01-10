@@ -1,7 +1,7 @@
-const { scaleLinear, scaleOrdinal, schemeCategory10 } = d3;
-const { axisLeft, axisBottom } = d3;
-const { extent } = d3;
-const { SvgChart, helper } = d3Kit;
+import { scaleLinear, scaleOrdinal, schemeCategory10 } from 'd3-scale';
+import { axisLeft, axisBottom } from 'd3-axis';
+import { extent } from 'd3-array';
+import { SvgChart, helper } from 'd3kit';
 
 class BubbleChart extends SvgChart {
   // Define default options for this chart
@@ -88,4 +88,4 @@ class BubbleChart extends SvgChart {
   }
 }
 
-window.d3BubbleChart = BubbleChart;
+export default BubbleChart;

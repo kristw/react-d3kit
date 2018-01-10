@@ -1,6 +1,9 @@
-// window.PlainBubbleChart is a bubble chart class built via d3Kit.
-// See implementation in bubbleChart.js
-const BubbleChart = ReactD3Kit.createComponent(window.d3BubbleChart);
+import ReactDOM from 'react-dom';
+import React from 'react';
+import PlainBubbleChart from './bubbleChart';
+import { createComponent } from '../../src/main';
+const BubbleChart = createComponent(PlainBubbleChart);
+import './style.css';
 
 function generateBubbles() {
   var bubbles = [];
